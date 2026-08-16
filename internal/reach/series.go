@@ -48,10 +48,8 @@ func Smooth(readings []model.Reading, window int) ([]model.Reading, error) {
 		if hi > len(readings) {
 			hi = len(readings)
 		}
-		window := readings[lo:hi]
-		sort.Slice(window, func(a, b int) bool { return window[a].LevelM < window[b].LevelM })
-		levels := make([]float64, 0, len(window))
-		for _, r := range window {
+		levels := make([]float64, 0, hi-lo)
+		for _, r := range readings[lo:hi] {
 			levels = append(levels, r.LevelM)
 		}
 		smoothed := readings[i]
